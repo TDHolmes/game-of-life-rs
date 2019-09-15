@@ -1,4 +1,4 @@
-/// Cell structure and
+/// Implementation of a single Conway's Game of Life cell
 ///
 use std::fmt::{Display, Formatter, Error};
 
@@ -9,10 +9,12 @@ pub(crate) struct Cell {
 }
 
 impl Cell {
+    /// returns a new, dead cell
     pub(crate) fn new() -> Cell {
         Cell {is_alive: false, pending_state: false}
     }
 
+    /// given the number of alive neighbors, update our pending state
     pub(crate) fn update(&mut self, alive_neighbors: u32) {
         if self.is_alive {
             if alive_neighbors <= 1 || alive_neighbors > 3 {
@@ -25,6 +27,7 @@ impl Cell {
         }
     }
 
+    /// latches the pending internal state to alive or dead
     pub(crate) fn latch_state(&mut self) {
         self.is_alive = self.pending_state;
         self.pending_state = false;

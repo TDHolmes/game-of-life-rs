@@ -25,22 +25,29 @@ fn main() {
         .arg(Arg::with_name("rate")
             .long("rate")
             .help("Speed of the refresh cycles in miliseconds")
+            .takes_value(true))
+        .arg(Arg::with_name("config-filepath")
+            .long("config-filepath")
+            .short("f")
+            .help("Board configuration file. Supports custom JSON or standard RLE. See http://www.conwaylife.com/wiki/Run_Length_Encoded for more info.")
             .takes_value(true)
     ).get_matches();
 
     // argument unwrapping / parsing
     let rows = value_t!(matches, "rows", usize).unwrap_or(40);
     let cols = value_t!(matches, "cols", usize).unwrap_or(80);
-    let rand_prob = value_t!(matches, "rand-density", f32).unwrap_or(0.5);
     let dur = value_t!(matches, "rate", u64).unwrap_or(250);
+    let rand_prob = value_t!(matches, "rand-density", f32).unwrap_or(0.25);
+    let path_str_opt = matches.value_of("config-filepath");
 
+    // coax some types
     let duration = Duration::from_millis(dur);
-    println!("dur: {:?}", duration);
 
-    if rand_prob < 0. || rand_prob >= 1. {
-        panic!("Incorrect initial random probability (not within [0,1])");
+    let mut path: Option<&Path> = None;
+    if let Some(path_string) = path_str_opt {
+        let p: &Path = Path::new(path_string);
+        path = Some(p);
     }
 
-    // app::app(rows, cols, Some(rand_prob), None, duration);
-    app::app(rows, cols, None, Some(Path::new("./board_configs/gosper_glider_gun.json")), duration);
+    app::app(rows, cols, Some(rand_prob), path, duration);
 }

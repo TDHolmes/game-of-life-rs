@@ -1,6 +1,7 @@
+/// Game of life crate that implements the game as well as the ability to load
+/// Game of Life configuration files from the community.
 ///
-///
-/// Game of Life Rules:
+/// Rules:
 ///   - Any live cell with fewer than two live neighbours dies, as if by underpopulation.
 ///   - Any live cell with two or three live neighbours lives on to the next generation.
 ///   - Any live cell with more than three live neighbours dies, as if by overpopulation.
