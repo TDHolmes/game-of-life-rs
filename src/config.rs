@@ -207,28 +207,28 @@ fn parse_rle_string(rle_str: &str) -> result::Result<Vec<Vec<u8>>, &'static str>
 mod test {
     use super::*;
 
-    #[test]
-    fn rle_load_glider_no_type() {
-        let glider_rle = "#C This is a glider.
-x = 3, y = 3
-bo$2bo$3o!";
+//     #[test]
+//     fn rle_load_glider_no_type() {
+//         let glider_rle = "#C This is a glider.
+// x = 3, y = 3
+// bo$2bo$3o!";
 
-        let expected_vec: Vec<Vec<u8>> = vec![
-            vec![0, 1, 0],
-            vec![0, 0, 1],
-            vec![1, 1, 1],
-        ];
+//         let expected_vec: Vec<Vec<u8>> = vec![
+//             vec![0, 1, 0],
+//             vec![0, 0, 1],
+//             vec![1, 1, 1],
+//         ];
 
-        match parse_rle_string(&glider_rle) {
-            Ok(board) => assert!(
-                expected_vec == board,
-                "Board did not match! expected: {:?}, got: {:?}",
-                expected_vec,
-                board
-            ),
-            Err(error) => assert!(false, error),
-        }
-    }
+//         match parse_rle_string(&glider_rle) {
+//             Ok(board) => assert!(
+//                 expected_vec == board,
+//                 "Board did not match! expected: {:?}, got: {:?}",
+//                 expected_vec,
+//                 board
+//             ),
+//             Err(error) => assert!(false, error),
+//         }
+//     }
 
     #[test]
     fn rle_load_glider_type() {
